@@ -37,18 +37,27 @@ class MyHomePage extends StatelessWidget {
           decoration: const BoxDecoration(
             color: Colors.red,
             border: CustomBorder(
-              // top: BorderSide(
-              //   color: Colors.amber,
-              //   width: 10,
-              // ),
+              top: BorderSide(
+                color: Colors.amber,
+                width: 10,
+              ),
               left: BorderSide(
                 color: Colors.black,
+                width: 10,
+              ),
+              right: BorderSide(
+                color: Colors.green,
+                width: 10,
+              ),
+              bottom: BorderSide(
+                color: Colors.blue,
                 width: 10,
               ),
             ),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(50),
               bottomLeft: Radius.circular(50),
+              topRight: Radius.circular(50),
               bottomRight: Radius.circular(50),
             ),
           ),

@@ -65,8 +65,9 @@ class CustomBorder extends BoxBorder {
       paint.color = left.color;
       paint.strokeWidth = left.width;
       paint.style = PaintingStyle.stroke;
-      if (borderRadius != null) {
-        if (left.strokeAlign == BorderSide.strokeAlignInside) {
+
+      if (left.strokeAlign == BorderSide.strokeAlignInside) {
+        if (borderRadius != null && borderRadius.topLeft != Radius.zero) {
           canvas.drawArc(
             Rect.fromCircle(
                 center: rect.topLeft
@@ -77,40 +78,128 @@ class CustomBorder extends BoxBorder {
             false,
             paint,
           );
+        }
+        if (borderRadius != null && borderRadius.bottomLeft != Radius.zero) {
           canvas.drawArc(
             Rect.fromCircle(
                 center: rect.bottomLeft.translate(
-                    borderRadius.bottomLeft.x, -borderRadius.topLeft.y),
+                    borderRadius.bottomLeft.x, -borderRadius.bottomLeft.y),
                 radius: borderRadius.bottomLeft.x - left.width / 2),
             0.75 * 3.14,
             0.25 * 3.14,
             false,
             paint,
           );
-          canvas.drawLine(
-              rect.topLeft + Offset(left.width / 2, borderRadius.topLeft.y),
-              rect.bottomLeft - Offset(-left.width / 2, borderRadius.topLeft.y),
-              paint);
         }
+        canvas.drawLine(
+            rect.topLeft + Offset(left.width / 2, borderRadius?.topLeft.y ?? 0),
+            rect.bottomLeft -
+                Offset(-left.width / 2, borderRadius?.bottomLeft.y ?? 0),
+            paint);
       }
     }
     if (top.width > 0.0) {
       paint.color = top.color;
       paint.strokeWidth = top.width;
       paint.style = PaintingStyle.stroke;
-      canvas.drawLine(rect.topLeft, rect.topRight, paint);
+      if (borderRadius != null) {
+        if (top.strokeAlign == BorderSide.strokeAlignInside) {
+          canvas.drawArc(
+            Rect.fromCircle(
+                center: rect.topLeft
+                    .translate(borderRadius.topLeft.x, borderRadius.topLeft.y),
+                radius: borderRadius.topLeft.y - top.width / 2),
+            1.25 * 3.14,
+            0.25 * 3.14,
+            false,
+            paint,
+          );
+          canvas.drawArc(
+            Rect.fromCircle(
+                center: rect.topRight.translate(
+                    -borderRadius.topRight.x, borderRadius.topRight.y),
+                radius: borderRadius.topRight.y - top.width / 2),
+            1.5 * 3.14,
+            0.25 * 3.14,
+            false,
+            paint,
+          );
+          canvas.drawLine(
+              rect.topLeft + Offset(borderRadius.topLeft.x, top.width / 2),
+              rect.topRight - Offset(borderRadius.topRight.x, -top.width / 2),
+              paint);
+        }
+      }
     }
     if (right.width > 0.0) {
       paint.color = right.color;
       paint.strokeWidth = right.width;
       paint.style = PaintingStyle.stroke;
-      canvas.drawLine(rect.topRight, rect.bottomRight, paint);
+      if (borderRadius != null) {
+        if (right.strokeAlign == BorderSide.strokeAlignInside) {
+          canvas.drawArc(
+            Rect.fromCircle(
+                center: rect.topRight.translate(
+                    -borderRadius.topRight.x, borderRadius.topRight.y),
+                radius: borderRadius.topRight.x - right.width / 2),
+            1.75 * 3.14,
+            0.25 * 3.14,
+            false,
+            paint,
+          );
+          canvas.drawArc(
+            Rect.fromCircle(
+                center: rect.bottomRight.translate(
+                    -borderRadius.bottomRight.x, -borderRadius.bottomRight.y),
+                radius: borderRadius.bottomRight.x - right.width / 2),
+            0 * 3.14,
+            0.25 * 3.14,
+            false,
+            paint,
+          );
+          canvas.drawLine(
+              rect.topRight + Offset(-right.width / 2, borderRadius.topRight.y),
+              rect.bottomRight -
+                  Offset(right.width / 2, borderRadius.bottomRight.y),
+              paint);
+        }
+      }
     }
     if (bottom.width > 0.0) {
       paint.color = bottom.color;
       paint.strokeWidth = bottom.width;
       paint.style = PaintingStyle.stroke;
-      canvas.drawLine(rect.bottomLeft, rect.bottomRight, paint);
+
+      if (borderRadius != null) {
+        if (bottom.strokeAlign == BorderSide.strokeAlignInside) {
+          canvas.drawArc(
+            Rect.fromCircle(
+                center: rect.bottomLeft.translate(
+                    borderRadius.bottomLeft.x, -borderRadius.bottomLeft.y),
+                radius: borderRadius.bottomLeft.y - bottom.width / 2),
+            0.5 * 3.14,
+            0.25 * 3.14,
+            false,
+            paint,
+          );
+          canvas.drawArc(
+            Rect.fromCircle(
+                center: rect.bottomRight.translate(
+                    -borderRadius.bottomRight.x, -borderRadius.bottomRight.y),
+                radius: borderRadius.bottomRight.y - bottom.width / 2),
+            0.25 * 3.14,
+            0.25 * 3.14,
+            false,
+            paint,
+          );
+          canvas.drawLine(
+              rect.bottomLeft +
+                  Offset(borderRadius.bottomLeft.x, -bottom.width / 2),
+              rect.bottomRight -
+                  Offset(borderRadius.bottomRight.x, bottom.width / 2),
+              paint);
+        }
+      }
     }
   }
 
