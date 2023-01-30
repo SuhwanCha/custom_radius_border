@@ -39,18 +39,22 @@ class MyHomePage extends StatelessWidget {
             border: CustomBorder(
               top: BorderSide(
                 color: Colors.amber,
+                strokeAlign: -1,
                 width: 10,
               ),
               left: BorderSide(
                 color: Colors.black,
+                strokeAlign: -1,
                 width: 10,
               ),
               right: BorderSide(
                 color: Colors.green,
+                strokeAlign: -1,
                 width: 10,
               ),
               bottom: BorderSide(
                 color: Colors.blue,
+                strokeAlign: -1,
                 width: 10,
               ),
             ),
@@ -58,7 +62,7 @@ class MyHomePage extends StatelessWidget {
               topLeft: Radius.circular(50),
               bottomLeft: Radius.circular(50),
               topRight: Radius.circular(50),
-              bottomRight: Radius.circular(50),
+              bottomRight: Radius.circular(20),
             ),
           ),
           child: const Center(
